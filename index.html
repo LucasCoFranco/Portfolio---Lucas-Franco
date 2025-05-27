@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfólio DevOps - José</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Fira Code', monospace;
+      background-color: #0f0f1a;
+      color: #f0f0f0;
+      line-height: 1.6;
+      font-size: 18px;
+      background-image: url("img/z16.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 100vh;
+      width: 100vw;
+      background-attachment: fixed; /* Para fixar a imagem no fundo */
+    }
+
+    header {
+      background-image: url("img/header-abstract.jpg");
+      background-size: cover;
+      background-position: center;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header h2 {
+      font-size: 1.5rem;
+      color: #ffffff;
+    }
+
+    .language-switcher {
+      margin-top: 1rem;
+      text-align: right;
+    }
+
+    .language-switcher a img {
+      width: 25px;
+    }
+
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* <-- Centraliza o conteúdo na horizontal */
+        align-items: center;
+        padding: 2rem;
+        max-width: 1200px;
+        margin: auto;
+        gap: 2rem;
+    }
+
+    .sidebar {
+        flex: 0 0 auto; /* Impede que estique ou encolha */
+        
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        border-color: transparent;
+    }
+
+    .sidebar img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+
+    .sidebar a {
+      display: block;
+      margin: 0.5rem 0;
+      background-color: #000000;
+      color: #ffffff;
+      padding: 0.5rem;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #a75100;
+    }
+
+    main {
+      flex: 1;
+      padding: 0 2rem;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    section h2 {
+      border-bottom: 2px solid #ffffff;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      text-align: center;
+    }
+
+    .header-image {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      margin: 1rem 0 2rem 0;
+      border-radius: 12px;
+    }
+
+    .project-carousel-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .project-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .project-item {
+      flex: 0 0 150px;
+      text-align: center;
+    }
+
+    .project-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      transition: transform 0.3s;
+    }
+
+    .project-image:hover {
+      transform: scale(1.05);
+    }
+
+    .carousel-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        margin: 20px 0;
+        width: 100%; /* Garante que não ultrapasse */
+        max-width: 100%; /* Protege contra overflow */
+        min-width: 0;
+    }
+
+    .carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;  /* IE 10+ */
+        max-width: 100%;
+        width: 100%;
+        flex-wrap: nowrap;
+    }
+
+    .carousel::-webkit-scrollbar {
+        display: none; /* Chrome, Safari */
+    }
+
+    .carousel-item {
+      flex: 0 0 auto;
+      width: 200px;
+      margin-right: 20px;
+      text-align: center;
+      background-color: #1f1f1f;
+      border-radius: 12px;
+      padding: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .carousel-item img {
+        width: 100%;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        border: none;
+        font-size: 2rem;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 10;
+        border-radius: 50%;
+        transition: background 0.2s;
+    }
+
+    .carousel-btn:hover {
+        background-color: rgba(255,255,255,0.2);
+    }
+
+    .carousel-btn.left {
+        left: 10px;
+    }
+
+    .carousel-btn.right {
+        right: 10px;
+    }
+
+    #blog ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 0;
+    }
+
+    #blog li {
+      margin-bottom: 1.5rem;
+    }
+
+    #blog a {
+      color: #00bcd4;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    #blog a:hover {
+      color: #0097a7;
+    }
+
+    .promo-box {
+      background-color: #ff6a00;
+      color: white;
+      font-size: 0.85rem;
+      padding: 0.3rem 1rem;
+      border-radius: 15px;
+      margin-left: 0.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      display: inline-block;
+    }
+
+    #cert img {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 8px;
+    }
+
+    #cert img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 2;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      main {
+        padding: 0;
+      }
+
+      .sidebar {
+        margin-bottom: 2rem;
+      }
+    }
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    .tooltip-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip-container img {
+      width: 48px;
+      height: 48px;
+    }
+
+    .tooltip-text {
+      visibility: hidden;
+      opacity: 0;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      text-align: center;
+      padding: 6px 10px;
+      border-radius: 4px;
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      z-index: 10;
+      transition: opacity 0.3s ease;
+      font-size: 13px;
+    }
+
+    .tooltip-container:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Lucas Franco</h1>
+    <h2>Estudante de Redes, CyberSecurity & Cloud</h2>
+    <div class="language-switcher">
+      <span>Change language to:</span>
+      <a href="index-en.html"><img src="img/eua.png" alt="English"></a>
+    </div>
+  </header>
+  <div class="container">
+    <aside class="sidebar">
+      <img src="img/Lucas Cordeiro (1).jpg" alt="Foto de perfil">
+      <a href="https://www.linkedin.com/in/lucascofranco/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/LucasCoFranco" target="_blank">GitHub</a>
+    </aside>
+    <main>
+      <section id="projects">
+        <h2>Projetos principais</h2>
+        <div class="carousel-wrapper">
+          <!-- <button class="carousel-btn left" onclick="scrollCarousel(-1)">&#10094;</button> -->
+          
+          <div class="carousel" id="projectCarousel">
+            <!-- Replique esse bloco para adicionar mais projetos -->
+            <div class="carousel-item">
+              <img src="img/project/dashboard e cenario.jpeg" alt="Projeto 1">
+              <p>Monitoramento com Zabbix</p>
+            </div>
+            <div class="carousel-item">
+              <img src="img/project/pfsense.png" alt="Projeto 2">
+              <p>Firewall com PFsense</p>
+            </div>
+            <div class="carousel-item">
+              <img src="img/project/EntregaFinalAWS1.jpg" alt="Projeto 3">
+              <p>Infraestrutura Escalável na AWS</p><br>
+              
+            </div>
+            <div class="carousel-item">
+              <img src="img/project/facebook_phishing.png" alt="Projeto 4">
+              <p>Phishing do Facebook</p>
+            </div>
+            <!-- Adicione mais blocos conforme necessário -->
+          </div>
+      
+          <!-- <button class="carousel-btn right" onclick="scrollCarousel(1)">&#10095;</button> -->
+        </div>
+      </section>
+      <section id="Tools">
+        <h2>Experiência com</h2>
+        <div class="skills-grid">
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=arduino" alt="Arduino">
+            <div class="tooltip-text">Arduino</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=nodejs" alt="Node">
+            <div class="tooltip-text">Node</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=linux" alt="Linux">
+            <div class="tooltip-text">Linux</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=bash" alt="Bash">
+            <div class="tooltip-text">Bash</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=gcp" alt="Google Cloud">
+            <div class="tooltip-text">Google Cloud</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=github" alt="GitHub">
+            <div class="tooltip-text">GitHub</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=aws" alt="AWS">
+            <div class="tooltip-text">AWS</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=mysql" alt="MySQL">
+            <div class="tooltip-text">MySQL</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=docker" alt="Docker">
+            <div class="tooltip-text">Docker</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=vscode" alt="VSCode">
+            <div class="tooltip-text">VSCode</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=windows" alt="Windows">
+            <div class="tooltip-text">Windows</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=grafana" alt="Grafana">
+            <div class="tooltip-text">Grafana</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=git" alt="Git">
+            <div class="tooltip-text">Git</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=kali" alt="Kali Linux">
+            <div class="tooltip-text">Kali Linux</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=nginx" alt="Nginx">
+            <div class="tooltip-text">Nginx</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=python" alt="Python">
+            <div class="tooltip-text">Python</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=azure" alt="Azure">
+            <div class="tooltip-text">Azure</div>
+          </div>
+          <div class="tooltip-container">
+            <img src="https://skillicons.dev/icons?i=postman" alt="Postman">
+            <div class="tooltip-text">Postman</div>
+          </div>
+        </div>
+      </section>
+      <section id="experience">
+        <h2>Resumo</h2>
+        <p><p>Atualmente sou estudante de Redes de Computadores, Segurança da Informação e Cloud Computing. Tenho experiência prática em ambientes virtualizados com VMware, serviços em nuvem (AWS e Azure), administração de servidores Linux e infraestrutura de redes. Também desenvolvo projetos voltados para segurança ofensiva e defensiva, automação de ambientes e Cloud. Estou em constante aprendizado e aprimoramento para atuar profissionalmente na área de CyberSecurity e Cloud Engineering.</p>
+    </p>
+      </section>
+
+      <section id="cert">
+        <h2>Certificações</h2>
+        <div class="project-container">
+          
+          <div class="project-item">
+            <img src="https://images.credly.com/images/be8fcaeb-c769-4858-b567-ffaaa73ce8cf/image.png" alt="Certificação Azure" width="150" height="150">
+            <p>Microsoft Azure AZ-900</p>
+          </div>
+          <div class="project-item">
+            <img src="https://images.credly.com/images/fc1352af-87fa-4947-ba54-398a0e63322e/security-compliance-and-identity-fundamentals-600x600.png" alt="Certificação Azure" width="150" height="150">
+            <p>Microsoft Azure SC-900</p>
+          </div>
+          <div class="project-item">
+            <img src="https://images.credly.com/images/4136ced8-75d5-4afb-8677-40b6236e2672/azure-ai-fundamentals-600x600.png" alt="Certificação Azure" width="150" height="150">
+            <p>Microsoft Azure AI-900</p>
+          </div>
+          <div class="project-item">
+            <img src="https://images.credly.com/images/2a6251f2-737b-4bf6-9190-d77570cc76fc/CERT-Fundamentals-Power-Platform.png" alt="Certificação Azure" width="150" height="150">
+            <p>Microsoft Azure PL-900</p>
+          </div>
+          <div class="project-item">
+            <img src="https://images.credly.com/images/20082fc1-94af-4773-9df0-28856b566748/image.png" alt="Certificação Fortinet" width="150" height="150">
+            <p>Fortinet Associate Cybersecurity</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script>
+    ScrollReveal().reveal('section', {
+      origin: 'bottom',
+      distance: '50px',
+      duration: 1000,
+      easing: 'ease-in-out',
+      interval: 200
+    });
+  
+    // Exemplo: Animação para imagens específicas
+    ScrollReveal().reveal('.carousel-item', {
+      origin: 'left',
+      distance: '100px',
+      duration: 1200,
+      easing: 'ease-in-out',
+      interval: 150
+    });
+  
+    ScrollReveal().reveal('.sidebar', {
+      origin: 'right',
+      distance: '80px',
+      duration: 1000
+    });
+  </script>
+  
+  <script>
+    function scrollCarousel(direction) {
+      const carousel = document.getElementById('projectCarousel');
+      const scrollAmount = 220; // Ajuste conforme largura dos itens
+      carousel.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  </script>  
+</body>
+</html>
+ 
